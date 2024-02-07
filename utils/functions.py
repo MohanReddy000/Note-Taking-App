@@ -116,6 +116,21 @@ def get_user_data(user_id):
         cursor.close()
 
 
+def get_all_users_notes(id):
+    '''
+        Function for getting the data of all notes using user_id
+    '''
+    conn = get_database_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM notes ')
+        results = cursor.fetchall()
+        cursor.close()
+        if len(results) == 0:
+            return None
+        return results
+    except:
+        cursor.close()
 def get_data_using_user_id(id):
     '''
         Function for getting the data of all notes using user_id
@@ -123,7 +138,7 @@ def get_data_using_user_id(id):
     conn = get_database_connection()
     try:
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM notes WHERE user_id=' + str(id))
+        cursor.execute('SELECT * FROM notes WHERE id=' + str(id))
         results = cursor.fetchall()
         cursor.close()
         if len(results) == 0:
@@ -178,18 +193,20 @@ def get_data():
         cursor.close()
 
 
-def add_note(note_title, note, note_markdown, tags, user_id):
+def add_note(note_title, note, note_markdown, tags, user_id, user_name):
     '''
         Function for adding note into the database
     '''
     conn = get_database_connection()
     try:
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO notes(note_title, note, note_markdown, tags, user_id) VALUES (?, ?, ?, ?, ?)", (note_title, note, note_markdown, tags, user_id))
+        # cursor.execute("ALTER TABLE notes ADD COLUMN user_name VARCHAR(255)")
+
+        cursor.execute("INSERT INTO notes(note_title, note, note_markdown, tags, user_id, user_name) VALUES (?, ?, ?, ?, ?, ?)", (note_title, note, note_markdown, tags, user_id, user_name))
         conn.commit()
         cursor.close()
         return
-    except:
+    except Exception as e:
         cursor.close()
 
 

@@ -11,13 +11,16 @@ from utils.forms import (
     ChangeEmailForm, ChangePasswordForm
 )
 from core import core
-from app import api
+from app import api, create_app
 from flask_restful import reqparse, Resource
+from flask_socketio import SocketIO, emit
 from utils.decorators import login_required
 from flask import Markup
 import utils.functions as functions
 import markdown
 parser = reqparse.RequestParser()
+
+# socketio = SocketIO(create_app)
 
 
 @core.route('/')
@@ -41,7 +44,7 @@ def profile():
         App for user profile can only be accessed only after successful login
     '''
     if request.method == 'GET':
-        notes = functions.get_data_using_user_id(session['id'])
+        notes = functions.get_all_users_notes(session['id'])
         tags = []
         if notes:
             for note in notes:
@@ -136,7 +139,7 @@ def add_note():
         except:
             tags = None
 
-        functions.add_note(note_title, note, note_markdown, tags, session['id'])
+        functions.add_note(note_title, note, note_markdown, tags, session['id'],session["username"])
         return redirect('/profile/')
     return render_template('add_note.html', form=form, username=session['username'])
 

@@ -7,6 +7,7 @@ CREATE TABLE `notes` (
   `note_markdown` TEXT,
   `tags` VARCHAR(200),
   `user_id` INTEGER,
+  `user_name` VARCHAR(255),
   FOREIGN KEY(user_id) REFERENCES users(id)
 );
 

@@ -6,9 +6,9 @@
             <div class="thumbnail" style="padding: 3%">
                 {% for note in notes %}
                     <legend><h3 class="text-center"><b>Note Details:</b></h3></legend>
-                    <h4><b>Note Added on:</b> <br><br> {{ note[1] | custom_date }}</h4>
+                    <h4><b>Note Added on:</b> <br><br> {{ note[1] }}</h4>
                     <br>
-                    <h4><b>Note Updated on:</b> <br><br> {{ note[2] | custom_date }}</h4>
+                    <h4><b>Note Updated on:</b> <br><br> {{ note[2] }}</h4>
                     <br>
                     <h4><b>Note Title:</b> <br><br> {{ note[3] }}</h4>
                 {% endfor %}

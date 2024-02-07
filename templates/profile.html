@@ -22,7 +22,8 @@
                             <tr>
                                 <th class="text-center">#</th>
                                 <th>Note Title</th>
-                                <th>Note Saved on</th>
+                                <th>Creation Date</th>
+                                <th>Created User</th>
                                 <th>Tags</th>
                                 <th class="text-center">Delete</th>
                             </tr>
@@ -32,7 +33,8 @@
                                 <tr>
                                     <td class="text-center">{{ loop.index }}</td>
                                     <td> <a href="/notes/{{ note[0] }}/">{{ note[3] }}</a></td>
-                                    <td>{{ note[1] | custom_date }}</td>
+                                    <td>{{note[1]}}</td>
+                                    <td>{{ note[8] }}</td>
                                     <td>
                                             {{ tags[loop.index0] }}
                                     </td>
