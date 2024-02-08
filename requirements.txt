@@ -4,6 +4,7 @@ click==6.7
 Flask==0.12.2
 Flask-Mail==0.9.1
 Flask-PageDown==0.2.2
+Flask-SocketIO
 Flask-RESTful==0.3.6
 Flask-WTF==0.14.2
 itsdangerous==0.24

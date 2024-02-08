@@ -30,7 +30,7 @@ class AddNoteForm(FlaskForm):
       a note title.")])
     # note = TextAreaField('Note:', [validators.Required("Please enter \
     #   your password.")], widget=TextArea())
-    note = PageDownField('Your Note:')
+    note = PageDownField('Your Note:',render_kw={"onchange": "updateNote()"})
     tags = SelectMultipleField('Note Tags:')
     submit = SubmitField('Add Note')
 
