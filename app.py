@@ -1,10 +1,10 @@
 from flask import Flask
-# from flask_restful import Api
+from flask_restful import Api
 from flask_pagedown import PageDown
 from flask_socketio import SocketIO
 import os
 
-# api = Api()
+api = Api()
 pagedown = PageDown()
 socketio = SocketIO()
 
@@ -12,9 +12,9 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 
 # Extensions
-# api.init_app(app)
+api.init_app(app)
 pagedown.init_app(app)
-socketio.init_app(app)  # Initialize Flask-SocketIO
+socketio = SocketIO(app)  # Initialize Flask-SocketIO
 
 from core import core
 app.register_blueprint(core)

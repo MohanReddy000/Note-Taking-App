@@ -12,13 +12,12 @@ from utils.forms import (
 )
 from core import core
 # from app import api, create_app
-# from flask_restful import reqparse, Resource
-from flask_socketio import SocketIO, emit
+from flask_restful import reqparse, Resource
 from utils.decorators import login_required
 from flask import Markup
 import utils.functions as functions
 import markdown
-# parser = reqparse.RequestParser()
+parser = reqparse.RequestParser()
 
 # app, socketio = create_app()
 
@@ -188,18 +187,6 @@ def edit_note(note_id):
         functions.edit_note(note_title, note, note_markdown, tags, note_id=note_id)
         return redirect('/profile/')
 
-# notes = {}
-# @socketio.on('update_note')
-# def handle_update(data):
-#     note_id = data['id']
-#     content = data['content']
-#     notes[note_id] = content
-#     # socketio.emit('note_updated', {'id': note_id, 'content': content})
-
-# @socketio.on('disconnect')
-# def handle_disconnect():
-#     print('Client disconnected')
-
 @core.route("/notes/delete/<id>/", methods=['GET', 'POST'])
 @login_required
 def delete_note(id):
@@ -347,22 +334,22 @@ def background_process():
         return str(e)
 
 
-# class GetDataUsingUserID(Resource):
-#     def post(self):
-#         try:
-#             args = parser.parse_args()
-#             username = args['username']
-#             password = functions.generate_password_hash(args['password'])
-#             user_id = functions.check_user_exists(username, password)
-#             if user_id:
-#                 functions.store_last_login(user_id)
-#                 return functions.get_rest_data_using_user_id(user_id)
-#             else:
-#                 return {'error': 'You cannot access this page, please check username and password'}
-#         except AttributeError:
-#             return {'error': 'Please specify username and password'}
+class GetDataUsingUserID(Resource):
+    def post(self):
+        try:
+            args = parser.parse_args()
+            username = args['username']
+            password = functions.generate_password_hash(args['password'])
+            user_id = functions.check_user_exists(username, password)
+            if user_id:
+                functions.store_last_login(user_id)
+                return functions.get_rest_data_using_user_id(user_id)
+            else:
+                return {'error': 'You cannot access this page, please check username and password'}
+        except AttributeError:
+            return {'error': 'Please specify username and password'}
 
 
-# # api.add_resource(GetDataUsingUserID, '/api/')
-# parser.add_argument('username')
-# parser.add_argument('password')
+# api.add_resource(GetDataUsingUserID, '/api/')
+parser.add_argument('username')
+parser.add_argument('password')
